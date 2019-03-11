@@ -1,0 +1,21 @@
+name: Api Testing 
+base_url: http://localhost:2701/
+test_cases:
+- name: Get All Heroes
+  url: getAllHeroes/1/
+  method: GET
+  response:
+    status_code: 200
+    body:
+      id: 1
+- name: Create a new hero
+  url: createHero
+  method: POST
+  data:
+    id: 28cd34d3
+    account: Franck Underwood
+    action: nothing
+  response:
+    status_code: 200
+    body:
+      id: 1
