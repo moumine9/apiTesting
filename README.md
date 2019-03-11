@@ -3,6 +3,8 @@ Simple python tool to manage api testing for PT.Graph
 
 ## Usage
 
+`python main.py`
+
 ## References
 
 - [Json to Yaml online tool](https://www.json2yaml.com/)

@@ -4,19 +4,7 @@
 import requests
 import yaml
 from yaml import load, dump
-
-#r = requests.get('https://api.github.com', auth=('user', 'pass'))
-
-def clean_response(response, test):
-    req = ()
-
-    req["url"] = test["url"]
-    req["name"] = test["name"]
-    req["result"] = ()
-    req["result"]["stat"] = ("OK", "FAILED")[response.status_code == int(test['response']['status_code']) ]
-    req["result"]["body"] = test["res"]
-
-    return req
+import helpers
 
 stream = open('tests.yaml', 'r')
 tests_data = load(stream)
@@ -24,7 +12,7 @@ tests_results = ()
 
 for test in tests_data["test_cases"]:
     print("Test : %s | %s " % (test["name"], test["method"]) )
-    if ( (test['method'] == 'POST' || test['method'] == 'PUT' || test['method'] == 'UPDATE' || test['method'] == 'PATCH') && 'data' not in test:
+    if ( (test['method'] == 'POST' OR test['method'] == 'PUT' OR test['method'] == 'UPDATE' OR test['method'] == 'PATCH') AND 'data' not in test:
         raise ValueError("No post data provided"))
     
     if(test['method'] == 'POST'):
