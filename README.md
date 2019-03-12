@@ -12,3 +12,5 @@ Simple python tool to manage api testing for PT.Graph
 - [Requests python library](https://realpython.com/python-requests/)
 
 - [Tavern Automated API testing](https://taverntesting.github.io/)
+
+- [JSONPlaceholder : Fake Online REST API for Testing and Prototyping](http://jsonplaceholder.typicode.com/)
