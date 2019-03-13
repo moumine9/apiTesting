@@ -1,21 +1,35 @@
 name: Api Testing 
-base_url: http://localhost:2701/
+base_url: http://jsonplaceholder.typicode.com/
 test_cases:
-- name: Get All Heroes
-  url: getAllHeroes/1/
-  method: GET
-  response:
-    status_code: 200
-    body:
-      id: 1
-- name: Create a new hero
-  url: createHero
-  method: POST
-  data:
-    id: 28cd34d3
-    account: Franck Underwood
-    action: nothing
-  response:
-    status_code: 200
-    body:
-      id: 1
+  - name: Get users with id=5
+    url: users/5
+    method: GET
+    response:
+      status_code: 200
+      body:
+        id: 5
+        name: Chelsey Dietrich
+        username: Kamren
+        email: Lucio_Hettinger@annie.ca
+        address:
+          street: Skiles Walks
+          suite: Suite 351
+          city: Roscoeview
+          zipcode: '33263'
+          geo:
+            lat: "-31.8129"
+            lng: '62.5342'
+        phone: "(254)954-1289"
+        website: demarco.info
+        company:
+          name: Keebler LLC
+          catchPhrase: User-centric fault-tolerant solution
+          bs: revolutionize end-to-end systems
+  - name: Create a new post
+    url: posts
+    method: POST
+    data:
+      title: Franck Underwood
+      body: becoming vice president
+    response:
+      status_code: 201

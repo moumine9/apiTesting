@@ -4,17 +4,22 @@
 import requests
 import yaml
 from yaml import load, dump
-import helpers
+from helpers import *
 
 stream = open('tests.yaml', 'r')
 tests_data = load(stream)
-tests_results = ()
+tests_results = []
 
 for test in tests_data["test_cases"]:
     print("Test : %s | %s " % (test["name"], test["method"]) )
-    if ( (test['method'] == 'POST' OR test['method'] == 'PUT' OR test['method'] == 'UPDATE' OR test['method'] == 'PATCH') AND 'data' not in test:
-        raise ValueError("No post data provided"))
+    if ( (test['method'] == 'POST' or test['method'] == 'PUT' or test['method'] == 'UPDATE' or test['method'] == 'PATCH') and ('data' not in test) ):
+        raise ValueError("No post data provided")
     
     if(test['method'] == 'POST'):
         req = requests.post(tests_data['base_url'] + test['url'], data = test['data'])
-        tests.results[] = clean_response(req.json(), test)
+        tests_results.insert(-1,clean_response(req, test))
+    if(test['method'] == 'GET'):
+        req = requests.get(tests_data['base_url'] + test['url'])
+        tests_results.insert(-1, clean_response(req, test) )
+
+print(tests_results)
