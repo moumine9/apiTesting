@@ -18,8 +18,18 @@ for test in tests_data["test_cases"]:
     if(test['method'] == 'POST'):
         req = requests.post(tests_data['base_url'] + test['url'], data = test['data'])
         tests_results.insert(-1,clean_response(req, test))
+
+    if(test['method'] == 'PUT'):
+        req = requests.put(tests_data['base_url'] + test['url'], data = test['data'])
+        tests_results.insert(-1,clean_response(req, test))
+
+    if(test['method'] == 'HEAD'):
+        req = requests.head(tests_data['base_url'] + test['url'], data = test['data'])
+        tests_results.insert(-1,clean_response(req, test))
+
     if(test['method'] == 'GET'):
         req = requests.get(tests_data['base_url'] + test['url'])
         tests_results.insert(-1, clean_response(req, test) )
 
 print(tests_results)
+generate_body(tests_results)
