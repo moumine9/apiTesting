@@ -3,6 +3,8 @@
 
 import json
 import faker
+import datetime
+from datetime import timedelta
 from jinja2 import Template
 
 page = """
@@ -45,6 +47,7 @@ page = """
                 <th scope="col">Url</th>
                 <th scope="col" class="text-center">Method</th>
                 <th scope="col" class="text-center">Results</th>
+                <th scope="col" class="text-center">Time</th>
             </tr>
 
         </thead>
@@ -65,6 +68,7 @@ page = """
                         <i class="fas fa-circle text-success fa-md"></i>
                     {%- endif %}
                 </td>
+                <td class="text-center"> {{ test.time }} </td>
             </tr>
 
         {% endfor %}
@@ -82,14 +86,15 @@ page = """
 """
 
 # Function for taking the response and returning a proper array.
-def clean_response(response, test):
+def clean_response(response, test, delay):
     req = {}
-    
+
     req["url"] = test["url"]
     req["name"] = test["name"]
     req["method"] = test['method']
     req["result"] = {"status_code":"N/A", "body":"N/A"}
-    
+    req["time"] = "{:.2f}".format( (delay.microseconds)/1000 ) + " ms"
+
     if( 'status_code' in test['response'] ):
         req['result']['status_code'] = ("FAILED", "OK")[ int(response.status_code) == int(test['response']['status_code']) ]
     
@@ -102,7 +107,22 @@ def clean_response(response, test):
 #Function to build the html page
 def generate_body(tests_info,results):
     template = Template(page)
-
     return template.render(test_name = tests_info["name"], test_url = tests_info["base_url"], tests = results)
 
+
+# Function to get the current timestamp
+def now():
+
+    a = datetime.datetime.now()
+    
+    return a
+
+def check_url(base_url, mini_url):
+
+    if mini_url.startswith("http"):
+        return mini_url
+
+    elif mini_url.startswith("/"):
+        mini_url = mini_url[2:-1]
+        return base_url + mini_url
 

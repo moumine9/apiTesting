@@ -1,54 +1,82 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
+import sys
+import getopt
 import requests
-import yaml
-from yaml import load, dump
+from yaml import load
 from helpers import *
 
-stream = open('tests.yaml', 'r')
-tests_data = load(stream)
-tests_info = { "name" : tests_data["name"], "base_url": tests_data["base_url"] }
-tests_results = []
+def main(argv):
+   inputfile = ""
+   outputfile = ""
+   verbose = True
 
-for test in tests_data["test_cases"]:
-    if ( (test['method'] == 'POST' or test['method'] == 'PUT' or test['method'] == 'UPDATE' or test['method'] == 'PATCH') and ('data' not in test) ):
-        raise ValueError("No post data provided")
-    
-    if(test['method'] == 'POST'):
-        req = requests.post(tests_data['base_url'] + test['url'], data = test['data'])
-        tests_results.insert(-1,clean_response(req, test))
+   try:
+      opts, args = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
+   except getopt.GetoptError:
+      print('test.py -i <inputfile> -o <outputfile>')
+      sys.exit(2)
+   for opt, arg in opts:
+      if opt == '-h':
+         print('test.py -i <inputfile> -o <outputfile>')
+         sys.exit()
+      elif opt in ("-i", "--ifile"):
+         inputfile = arg
+      elif opt in ("-o", "--ofile"):
+         outputfile = arg
+      elif opt == "-lv":
+          verbose = False
 
-    if(test['method'] == 'PUT'):
-        req = requests.put(tests_data['base_url'] + test['url'], data = test['data'])
-        tests_results.insert(-1,clean_response(req, test))
+    stream = open('tests.yaml', 'r')
+    tests_data = load(stream)
+    tests_info = { "name" : tests_data["name"], "base_url": tests_data["base_url"] }
+    tests_results = []
 
-    if(test['method'] == 'HEAD'):
-        req = requests.head(tests_data['base_url'] + test['url'], data = json.dumps(test['data']) )
-        tests_results.insert(-1,clean_response(req, test))
+    for test in tests_data["test_cases"]:
+        
+        if ( (test['method'] == 'POST' or test['method'] == 'PUT' or test['method'] == 'UPDATE' or test['method'] == 'PATCH') and ('data' not in test) ):
+            raise ValueError("No post data provided")
+        
+        start = now() #variable to record request start time.
+        complete_url = check_url( test["base_url"], test["url"] )
 
-    if(test['method'] == 'GET'):
-        req = requests.get(tests_data['base_url'] + test['url'])
-        tests_results.insert(-1, clean_response(req, test) )
+        if(test['method'] == 'POST'):
+            req = requests.post( complete_url , data = test['data'] )
 
-for test in tests_results:
-    res = "N/A"
-    status_code = test['result']['status_code']
-    body = test['result']['body']
+        if(test['method'] == 'PUT'):
+            req = requests.put( complete_url , data = test['data'])
 
-    if( (status_code == body == "OK") or (status_code == body == "N/A")  ):
-        res = "OK"
-    elif( status_code == "OK" and body == "N/A" ):
-        res = "OK"
-    elif( status_code == "N/A" and body == "OK" ):
-        res = "OK"
-    else:
-        res = "FAILED"
+        if(test['method'] == 'HEAD'):
+            req = requests.head( complete_url , data = json.dumps(test['data']) )
 
-    print("Test : %s | %s | %s" % (test["name"], test["method"], res) )
+        if(test['method'] == 'GET'):
+            req = requests.get( complete_url )
+        
+        tests_results.insert(-1,clean_response(req, test, ( now() - start ) ))
+
+    for test in tests_results:
+        res = "N/A"
+        status_code = test['result']['status_code']
+        body = test['result']['body']
+
+        if( (status_code == body == "OK") or (status_code == body == "N/A")  ):
+            res = "OK"
+        elif( status_code == "OK" and body == "N/A" ):
+            res = "OK"
+        elif( status_code == "N/A" and body == "OK" ):
+            res = "OK"
+        else:
+            res = "FAILED"
+
+        print("Test : %s | %s | %s" % (test["name"], test["method"], res ) )
 
 
-page = generate_body(tests_info,tests_results)
+    page = generate_body(tests_info,tests_results)
 
-output = open('results.html','w')
-output.write(page)
+    output = open('results.html','w')
+    output.write(page)
+
+if __name__ == "__main__":
+   main(sys.argv[1:])

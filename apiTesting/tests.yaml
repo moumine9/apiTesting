@@ -1,6 +1,14 @@
 name: Tests Api Graph
 base_url: http://jsonplaceholder.typicode.com/
 test_cases:
+  - name: Create a new post
+    url: posts
+    method: POST
+    data:
+      title: Franck Underwood
+      body: becoming vice president
+    response:
+      status_code: 201
   - name: Get users with id=5
     url: users/5
     method: GET
@@ -25,14 +33,6 @@ test_cases:
           name: Keebler LLC
           catchPhrase: User-centric fault-tolerant solution
           bs: revolutionize end-to-end systems
-  - name: Create a new post
-    url: posts
-    method: POST
-    data:
-      title: Franck Underwood
-      body: becoming vice president
-    response:
-      status_code: 201
   - name: Get unexistent route
     url: user
     method: GET
