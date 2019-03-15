@@ -1,6 +1,4 @@
 pyyaml
 requests
 faker
-htmlbuilder
-yattag
 Jinja2
