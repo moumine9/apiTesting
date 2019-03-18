@@ -1,0 +1,8 @@
+name: Google Testing
+base_url: http://google.ca/
+test_cases:
+  - name: Reach google
+    url: http://www.google.ca/
+    method: GET
+    response:
+      status_code: 200

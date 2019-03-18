@@ -4,8 +4,12 @@
 import json
 import faker
 import datetime
+import requests
 from datetime import timedelta
 from jinja2 import Template
+import colorlog
+from termcolor import colored, cprint
+from yaml import load, dump
 
 page = """
 
@@ -121,15 +125,98 @@ def check_url(base_url, mini_url):
 
     #base_url
 
-    if mini_url.startswith("http"):
+    if  mini_url.find("http://") != -1:
         return mini_url
 
-    elif mini_url.startswith("/"):
-
-        complete_url = base_url + mini_url
-        complete_url = complete_url.replace("//","/")
-
+    elif mini_url[0] == "/":
+        complete_url = base_url + mini_url[1:]
+        print(complete_url)
         return complete_url
-        
+
     else:
         return(base_url + mini_url)
+
+
+def execute_tests(tests_data):
+    
+    tests_results = []
+
+    for test in tests_data["test_cases"]:
+
+        if ( (test['method'] == 'POST' or test['method'] == 'PUT' or test['method'] == 'UPDATE' or test['method'] == 'PATCH') and ('data' not in test) ):
+            raise ValueError("No post data provided")
+        
+        start = now() #variable to record request start time.
+        complete_url = check_url( tests_data["base_url"], test["url"] )
+
+        if(test['method'] == 'POST'):
+            req = requests.post( complete_url , data = test['data'] )
+
+        if(test['method'] == 'PUT'):
+            req = requests.put( complete_url , data = test['data'])
+
+        if(test['method'] == 'HEAD'):
+            req = requests.head( complete_url , data = json.dumps(test['data']) )
+
+        if(test['method'] == 'GET'):
+            req = requests.get( complete_url )
+        
+        tests_results.insert(-1,clean_response(req, test, ( now() - start ) ))    
+
+    return tests_results
+
+    
+
+def display_log(tests_results):
+    
+    for test in tests_results:
+        res = "N/A"
+        status_code = test['result']['status_code']
+        body = test['result']['body']
+
+        if( (status_code == body == "OK") or (status_code == body == "N/A")  ):
+            res = "OK"
+        elif( status_code == "OK" and body == "N/A" ):
+            res = "OK"
+        elif( status_code == "N/A" and body == "OK" ):
+            res = "OK"
+        else:
+            res = "FAILED"
+
+        print("Test : %s | %s | %s" % (test["name"], test["method"], res ) )
+
+
+def export_results(outputfile, tests_info, tests_results):
+    
+    if outputfile.find("html") != -1:
+        page = generate_body(tests_info,tests_results)
+        output = open(outputfile,'w')
+        output.write(page)
+        return True
+
+    elif outputfile.find("csv") != -1:
+        output = open(outputfile,'w')
+        output.write("Name,Url,method,Result,Time\n")
+
+        for t in tests_results:
+            result = ("OK","FAILED")[ t["result"]["status_code"] == 'FAILED' or t["result"]["body"] == 'FAILED']
+            output.write("%s,%s,%s,%s,%s\n" % (t["name"], t["url"], t["method"], result, t["time"] ) )
+
+        return True
+
+    elif outputfile.find("yaml") != -1:
+        yml_version = dump(tests_results)
+        output = open(outputfile,'w')
+        output.write(yml_version)
+
+        return True
+    
+    elif outputfile.find("json") != -1:
+        json_version = json.dumps(tests_results)
+        output = open(outputfile,'w')
+        output.write(json_version)
+        
+        return True
+    
+    else:
+        return False

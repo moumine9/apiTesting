@@ -1,0 +1,5 @@
+- method: GET
+  name: Reach google
+  result: {body: N/A, status_code: OK}
+  time: 93.00 ms
+  url: http://www.google.ca/
