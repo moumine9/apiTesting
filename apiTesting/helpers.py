@@ -112,17 +112,24 @@ def generate_body(tests_info,results):
 
 # Function to get the current timestamp
 def now():
-
     a = datetime.datetime.now()
-    
     return a
 
 def check_url(base_url, mini_url):
+
+    #check url formmating
+
+    #base_url
 
     if mini_url.startswith("http"):
         return mini_url
 
     elif mini_url.startswith("/"):
-        mini_url = mini_url[2:-1]
-        return base_url + mini_url
 
+        complete_url = base_url + mini_url
+        complete_url = complete_url.replace("//","/")
+
+        return complete_url
+        
+    else:
+        return(base_url + mini_url)

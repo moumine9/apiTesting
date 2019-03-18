@@ -10,7 +10,7 @@ test_cases:
     response:
       status_code: 201
   - name: Get users with id=5
-    url: users/5
+    url: /users/5
     method: GET
     response:
       status_code: 200
