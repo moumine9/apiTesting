@@ -4,13 +4,12 @@
 import os
 import sys
 import getopt
-import requests
 from yaml import load
 from helpers import *
 
 def main(argv):
 
-    inputfile = "tests.yaml"
+    inputfile = ""
     outputfile = ""
     verbose = True
 
@@ -32,20 +31,24 @@ def main(argv):
             verbose = False
 
 
-    stream = open(inputfile, 'r')
-    tests_data = load(stream)
-    tests_info = { "name" : tests_data["name"], "base_url": tests_data["base_url"] }
+    if( inputfile != "" ):
+        stream = open(inputfile, 'r')
+        tests_data = load(stream)
+        tests_info = { "name" : tests_data["name"], "base_url": tests_data["base_url"] }
+        
+        tests_results = execute_tests(tests_data)
+
+        if(verbose):
+            display_log(tests_results)
+
+        if(outputfile != ""):
+            if (export_results(outputfile, tests_info, tests_results)):
+                print("Report has been exported in <%s> \n" % outputfile)
+            else:
+                print("Format is not supported. Types supported are .html,.csv,.json.,.yaml \n")
     
-    tests_results = execute_tests(tests_data)
-
-    if(verbose):
-        display_log(tests_results)
-
-    if(outputfile != ""):
-        if (export_results(outputfile, tests_info, tests_results)):
-            print("Report has been exported in <%s> \n" % outputfile)
-        else:
-            print("Format is not supported. Types supported are .html,.csv,.json.,.yaml \n")
+    else:
+        print("Input file is not specified.")
     
 
 if __name__ == "__main__":

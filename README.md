@@ -1,9 +1,23 @@
 # apiTesting
-Simple python tool to manage api testing for PT.Graph
+Simple python tool to test REST Apis.
+
+## Install
+
+Please first use `pip install -r requirements.txt` to install the required dependancies.
 
 ## Usage
 
-`python main.py`
+Run the script as simply as this way : `python main.py -i <inputFile.yaml>`
+
+You can add an output file is you want : `-o <outputfile>` . The supported extensions are : 
+    - CSV file (*.csv or *.txt)
+    - JSON file (*.json only)
+    - HTML file (*.html or htm)
+    - YAML file (*.yml or *yaml)
+
+Example of output : 
+
+![Test example]()()
 
 ## References
 
@@ -11,6 +25,6 @@ Simple python tool to manage api testing for PT.Graph
 
 - [Requests python library](https://realpython.com/python-requests/)
 
-- [Tavern Automated API testing](https://taverntesting.github.io/)
-
 - [JSONPlaceholder : Fake Online REST API for Testing and Prototyping](http://jsonplaceholder.typicode.com/)
+
+- [PEP 8 — the Style Guide for Python Code](https://pep8.org/)

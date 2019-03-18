@@ -2,5 +2,3 @@ pyyaml
 requests
 faker
 Jinja2
-colorlog
-termcolor

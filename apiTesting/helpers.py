@@ -7,8 +7,6 @@ import datetime
 import requests
 from datetime import timedelta
 from jinja2 import Template
-import colorlog
-from termcolor import colored, cprint
 from yaml import load, dump
 
 page = """
@@ -57,9 +55,7 @@ page = """
         </thead>
 
         <tbody>
-
         {% for test in tests %}
-
             <tr>
                 <th> {{ test.name }} </th>
                 <th> {{ test.url }} </th>
@@ -74,9 +70,7 @@ page = """
                 </td>
                 <td class="text-center"> {{ test.time }} </td>
             </tr>
-
         {% endfor %}
-
         </tbody>
 
     </table> 
@@ -143,7 +137,7 @@ def execute_tests(tests_data):
 
     for test in tests_data["test_cases"]:
 
-        if ( (test['method'] == 'POST' or test['method'] == 'PUT' or test['method'] == 'UPDATE' or test['method'] == 'PATCH') and ('data' not in test) ):
+        if ( test['method'] in ('POST', 'PUT', 'UPDATE', 'PATCH') and ('data' not in test) ):
             raise ValueError("No post data provided")
         
         start = now() #variable to record request start time.
@@ -165,7 +159,7 @@ def execute_tests(tests_data):
 
     return tests_results
 
-    
+
 
 def display_log(tests_results):
     
@@ -188,7 +182,7 @@ def display_log(tests_results):
 
 def export_results(outputfile, tests_info, tests_results):
     
-    if outputfile.find("html") != -1:
+    if outputfile.find("htm") != -1:
         page = generate_body(tests_info,tests_results)
         output = open(outputfile,'w')
         output.write(page)
@@ -204,7 +198,7 @@ def export_results(outputfile, tests_info, tests_results):
 
         return True
 
-    elif outputfile.find("yaml") != -1:
+    elif (outputfile.find("yaml") != -1) or (outputfile.find("yml") != -1):
         yml_version = dump(tests_results)
         output = open(outputfile,'w')
         output.write(yml_version)
