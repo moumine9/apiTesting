@@ -1,9 +1,11 @@
 # apiTesting
 Simple python tool to test REST Apis.
 
+
 ## Install
 
 Please first use `pip install -r requirements.txt` to install the required dependencies.
+
 
 ## Usage
 
@@ -18,11 +20,12 @@ You can add an output file is you want : `-o <outputfile>` . The supported exten
     - HTML file (*.html or htm)
 
     - YAML file (*.yml or *yaml)
-    
 
-Example of output : 
 
-![Test example](https://github.com/moumine9/apiTesting/blob/master/testExample.PNG?raw=true)(Test example)
+
+## Examples: 
+
+![Test example](https://github.com/moumine9/apiTesting/blob/master/testExample.PNG?raw=true)
 
 ## References
 
