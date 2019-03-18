@@ -3,21 +3,26 @@ Simple python tool to test REST Apis.
 
 ## Install
 
-Please first use `pip install -r requirements.txt` to install the required dependancies.
+Please first use `pip install -r requirements.txt` to install the required dependencies.
 
 ## Usage
 
 Run the script as simply as this way : `python main.py -i <inputFile.yaml>`
 
-You can add an output file is you want : `-o <outputfile>` . The supported extensions are : 
+You can add an output file is you want : `-o <outputfile>` . The supported extensions are :
+
     - CSV file (*.csv or *.txt)
+
     - JSON file (*.json only)
+
     - HTML file (*.html or htm)
+
     - YAML file (*.yml or *yaml)
+    
 
 Example of output : 
 
-![Test example]()()
+![Test example](https://github.com/moumine9/apiTesting/blob/master/testExample.PNG?raw=true)(Test example)
 
 ## References
 
