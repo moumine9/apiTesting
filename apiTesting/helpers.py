@@ -5,9 +5,14 @@ import json
 import faker
 import datetime
 import requests
+import termtables
+from requests_ntlm import HttpNtlmAuth
 from datetime import timedelta
 from jinja2 import Template
 from yaml import load, dump
+from colorama import Fore, Back, Style, init, AnsiToWin32
+
+init(autoreset=True)
 
 page = """
 
@@ -83,10 +88,15 @@ page = """
 
 """
 
+def failed():
+    return Back.RED + Fore.WHITE + " FAILED " + Style.RESET_ALL
+
+def success():
+    return Back.BLACK + Fore.GREEN + "SUCCESS" + Style.RESET_ALL
+
 # Function for taking the response and returning a proper array.
 def clean_response(response, test, delay):
     req = {}
-
     req["url"] = test["url"]
     req["name"] = test["name"]
     req["method"] = test['method']
@@ -124,14 +134,22 @@ def check_url(base_url, mini_url):
 
     elif mini_url[0] == "/":
         complete_url = base_url + mini_url[1:]
-        print(complete_url)
         return complete_url
 
     else:
         return(base_url + mini_url)
 
+def authentication(auth):
+    if(auth["method"] == "none"):
+        return None
+    
+    elif(auth["method"] == "HttpNtlmAuth"):
+        params = auth['params']
+        params = json.loads( params.replace("\'", "\"") )
+        return HttpNtlmAuth(params['user'],params['pass'])
+        
 
-def execute_tests(tests_data):
+def execute_tests(tests_data, auth):
     
     tests_results = []
 
@@ -153,7 +171,7 @@ def execute_tests(tests_data):
             req = requests.head( complete_url , data = json.dumps(test['data']) )
 
         if(test['method'] == 'GET'):
-            req = requests.get( complete_url )
+            req = requests.get( complete_url, headers = {'content-type': 'application/json'}, auth= authentication(auth) )
         
         tests_results.insert(-1,clean_response(req, test, ( now() - start ) ))    
 
@@ -162,6 +180,9 @@ def execute_tests(tests_data):
 
 
 def display_log(tests_results):
+
+    header = ["Url", "Method", "Result"]
+    data = []
     
     for test in tests_results:
         res = "N/A"
@@ -169,15 +190,25 @@ def display_log(tests_results):
         body = test['result']['body']
 
         if( (status_code == body == "OK") or (status_code == body == "N/A")  ):
-            res = "OK"
+            res = success()
         elif( status_code == "OK" and body == "N/A" ):
-            res = "OK"
+            res = success()
         elif( status_code == "N/A" and body == "OK" ):
-            res = "OK"
+            res = success()
         else:
-            res = "FAILED"
+            res = failed()
+            
+        data.insert(-1, [ test["url"], test["method"], res ])
 
-        print("Test : %s | %s | %s" % (test["name"], test["method"], res ) )
+
+    string = termtables.to_string(
+        data,
+        header=header,
+        style=termtables.styles.ascii_thin,
+        padding=(0, 1)
+    )
+
+    print(string)
 
 
 def export_results(outputfile, tests_info, tests_results):

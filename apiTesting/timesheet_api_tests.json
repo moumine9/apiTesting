@@ -1,0 +1,734 @@
+{
+    "name": "Tests Timesheet.API - Timesheet Controller",
+    "base_url": "http://localhost:57460/",
+    "test_cases": [
+        {
+            "name": "Hours Per Day, Line and Date.",
+            "url": "/timesheet/ADAR2017014/line/2/date/2017-08-27/hours",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": [
+                    {
+                        "timeSheet_No": "ADAR2017014",
+                        "line_No": 2,
+                        "date_Work": "2017-08-27T00:00:00",
+                        "hours": 2.50
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Basics info about specific timesheetNo",
+            "url": "/timesheet/LEBM32017040/basics",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": [
+                    {
+                        "timeSheet_No": "LEBM32017040",
+                        "address_No": 10582.0,
+                        "pay_Class": "S",
+                        "status": "T",
+                        "period": 40,
+                        "fiscal_Year": 2017,
+                        "overtime_Rule": 40.0
+                    }
+                ]
+            }
+        },
+        {
+            "name": "All Days Hours for specific timesheet",
+            "url": "/timesheet/RITG2017039/hours",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": [
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Same results than preivous requests",
+            "url": "/timesheet/RITG2017039/hours/alldays",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": [
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    },
+                    {
+                        "timeSheet_No": "RITG2017039",
+                        "line_No": 1,
+                        "date_Work": "2018-02-24T00:00:00",
+                        "hours": 2.00
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Get all logs related to a specific timesheet",
+            "url": "/timesheet/DRAY2018044/logs",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": [
+                    {
+                        "timeSheet_No": "DRAY2018044",
+                        "action": "Create",
+                        "user": "DRAY",
+                        "date": "2019-04-04T14:43:02.34"
+                    },
+                    {
+                        "timeSheet_No": "DRAY2018044",
+                        "action": "Create",
+                        "user": "DRAY",
+                        "date": "2019-04-04T14:43:02.34"
+                    },
+                    {
+                        "timeSheet_No": "DRAY2018044",
+                        "action": "Create",
+                        "user": "DRAY",
+                        "date": "2019-04-04T14:43:02.34"
+                    },
+                    {
+                        "timeSheet_No": "DRAY2018044",
+                        "action": "Create",
+                        "user": "DRAY",
+                        "date": "2019-04-04T14:43:02.34"
+                    },
+                    {
+                        "timeSheet_No": "DRAY2018044",
+                        "action": "Create",
+                        "user": "DRAY",
+                        "date": "2019-04-04T14:43:02.34"
+                    },
+                    {
+                        "timeSheet_No": "DRAY2018044",
+                        "action": "Create",
+                        "user": "DRAY",
+                        "date": "2019-04-04T14:43:02.34"
+                    },
+                    {
+                        "timeSheet_No": "DRAY2018044",
+                        "action": "Create",
+                        "user": "DRAY",
+                        "date": "2019-04-04T14:43:02.34"
+                    },
+                    {
+                        "timeSheet_No": "DRAY2018044",
+                        "action": "Create",
+                        "user": "DRAY",
+                        "date": "2019-04-04T14:43:02.34"
+                    },
+                    {
+                        "timeSheet_No": "DRAY2018044",
+                        "action": "Create",
+                        "user": "DRAY",
+                        "date": "2019-04-04T14:43:02.34"
+                    },
+                    {
+                        "timeSheet_No": "DRAY2018044",
+                        "action": "Create",
+                        "user": "DRAY",
+                        "date": "2019-04-04T14:43:02.34"
+                    },
+                    {
+                        "timeSheet_No": "DRAY2018044",
+                        "action": "Create",
+                        "user": "DRAY",
+                        "date": "2019-04-04T14:43:02.34"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Get the last log of a timesheet",
+            "url": "/timesheet/DRAY2018044/log",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": [
+                    {
+                        "timeSheet_No": "DRAY2018044",
+                        "action": "Create",
+                        "user": "DRAY",
+                        "date": "2019-04-04T14:43:02.34"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Get the last log of a timesheet (same that previous)",
+            "url": "/timesheet/DRAY2018044/logs/firstOrDefault",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": [
+                    {
+                        "timeSheet_No": "DRAY2018044",
+                        "action": "Create",
+                        "user": "DRAY",
+                        "date": "2019-04-04T14:43:02.34"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Get the logs of a timesheet on a specific date",
+            "url": "/timesheet/maha2018046/date/20190401/logs",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": [
+                    {
+                        "timeSheet_No": "maha2018046",
+                        "action": "Copy Timesheet",
+                        "user": "maha",
+                        "date": "2019-04-01T14:17:12.113"
+                    },
+                    {
+                        "timeSheet_No": "maha2018046",
+                        "action": "Copy Timesheet",
+                        "user": "maha",
+                        "date": "2019-04-01T14:17:12.113"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Get details about a specific timesheet",
+            "url": "/timesheet/vilr32017025/details/",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": [
+                    {
+                        "timeSheet_No": "vilr32017025",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "subledger": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "pdba": 0.0,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "costTypeObject1": null,
+                        "costTypeObject2": null,
+                        "activity_Detail2": ""
+                    },
+                    {
+                        "timeSheet_No": "vilr32017025",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "subledger": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "pdba": 0.0,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "costTypeObject1": null,
+                        "costTypeObject2": null,
+                        "activity_Detail2": ""
+                    },
+                    {
+                        "timeSheet_No": "vilr32017025",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "subledger": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "pdba": 0.0,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "costTypeObject1": null,
+                        "costTypeObject2": null,
+                        "activity_Detail2": ""
+                    },
+                    {
+                        "timeSheet_No": "vilr32017025",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "subledger": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "pdba": 0.0,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "costTypeObject1": null,
+                        "costTypeObject2": null,
+                        "activity_Detail2": ""
+                    },
+                    {
+                        "timeSheet_No": "vilr32017025",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "subledger": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "pdba": 0.0,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "costTypeObject1": null,
+                        "costTypeObject2": null,
+                        "activity_Detail2": ""
+                    },
+                    {
+                        "timeSheet_No": "vilr32017025",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "subledger": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "pdba": 0.0,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "costTypeObject1": null,
+                        "costTypeObject2": null,
+                        "activity_Detail2": ""
+                    },
+                    {
+                        "timeSheet_No": "vilr32017025",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "subledger": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "pdba": 0.0,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "costTypeObject1": null,
+                        "costTypeObject2": null,
+                        "activity_Detail2": ""
+                    },
+                    {
+                        "timeSheet_No": "vilr32017025",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "subledger": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "pdba": 0.0,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "costTypeObject1": null,
+                        "costTypeObject2": null,
+                        "activity_Detail2": ""
+                    },
+                    {
+                        "timeSheet_No": "vilr32017025",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "subledger": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "pdba": 0.0,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "costTypeObject1": null,
+                        "costTypeObject2": null,
+                        "activity_Detail2": ""
+                    },
+                    {
+                        "timeSheet_No": "vilr32017025",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "subledger": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "pdba": 0.0,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "costTypeObject1": null,
+                        "costTypeObject2": null,
+                        "activity_Detail2": ""
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Get details about timesheet on specific line",
+            "url": "/timesheet/vilr32017025/line/4/details/",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": [
+                    {
+                        "timeSheet_No": "vilr32017025",
+                        "line_No": 4.0,
+                        "time_Type": "R",
+                        "activity": "14927819",
+                        "operation": 0.0,
+                        "subledger": 10035.0,
+                        "activity_Detail": "",
+                        "pdba": 0.0,
+                        "costObject1": "603035  ",
+                        "costObject2": "PD05TDEF  ",
+                        "costTypeObject1": null,
+                        "costTypeObject2": null,
+                        "activity_Detail2": ""
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Get details about timesheet on specific PDBA Code",
+            "url": "/timesheet/beaj72014044/pdba/0/details",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": [
+                    {
+                        "timeSheet_No": "beaj72014044",
+                        "line_No": 0.0,
+                        "time_Type": "W",
+                        "activity": "11588858",
+                        "operation": 506.0,
+                        "subledger": 6276657.0,
+                        "activity_Detail": "",
+                        "pdba": 0.0,
+                        "costObject1": "",
+                        "costObject2": "30D2MMFGS ",
+                        "costTypeObject1": null,
+                        "costTypeObject2": null,
+                        "activity_Detail2": ""
+                    },
+                    {
+                        "timeSheet_No": "beaj72014044",
+                        "line_No": 0.0,
+                        "time_Type": "W",
+                        "activity": "11588858",
+                        "operation": 506.0,
+                        "subledger": 6276657.0,
+                        "activity_Detail": "",
+                        "pdba": 0.0,
+                        "costObject1": "",
+                        "costObject2": "30D2MMFGS ",
+                        "costTypeObject1": null,
+                        "costTypeObject2": null,
+                        "activity_Detail2": ""
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Get timesheet details( VwTimesheet View)",
+            "url": "/timesheet/vilr32017025/condensed/",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": [
+                    {
+                        "timeSheet_No": "vilr32017025",
+                        "date_Work_Start": "2017-11-12T00:00:00",
+                        "date_Work_End": "2017-11-18T00:00:00",
+                        "status": "J",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "subledger": 0.0,
+                        "pdba": 0.0,
+                        "pdbA_Description": null,
+                        "timeSection": null,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "activity_Detail2": ""
+                      },
+                      {
+                        "timeSheet_No": "vilr32017025",
+                        "date_Work_Start": "2017-11-12T00:00:00",
+                        "date_Work_End": "2017-11-18T00:00:00",
+                        "status": "J",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "subledger": 0.0,
+                        "pdba": 0.0,
+                        "pdbA_Description": null,
+                        "timeSection": null,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "activity_Detail2": ""
+                      },
+                      {
+                        "timeSheet_No": "vilr32017025",
+                        "date_Work_Start": "2017-11-12T00:00:00",
+                        "date_Work_End": "2017-11-18T00:00:00",
+                        "status": "J",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "subledger": 0.0,
+                        "pdba": 0.0,
+                        "pdbA_Description": null,
+                        "timeSection": null,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "activity_Detail2": ""
+                      },
+                      {
+                        "timeSheet_No": "vilr32017025",
+                        "date_Work_Start": "2017-11-12T00:00:00",
+                        "date_Work_End": "2017-11-18T00:00:00",
+                        "status": "J",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "subledger": 0.0,
+                        "pdba": 0.0,
+                        "pdbA_Description": null,
+                        "timeSection": null,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "activity_Detail2": ""
+                      },
+                      {
+                        "timeSheet_No": "vilr32017025",
+                        "date_Work_Start": "2017-11-12T00:00:00",
+                        "date_Work_End": "2017-11-18T00:00:00",
+                        "status": "J",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "subledger": 0.0,
+                        "pdba": 0.0,
+                        "pdbA_Description": null,
+                        "timeSection": null,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "activity_Detail2": ""
+                      },
+                      {
+                        "timeSheet_No": "vilr32017025",
+                        "date_Work_Start": "2017-11-12T00:00:00",
+                        "date_Work_End": "2017-11-18T00:00:00",
+                        "status": "J",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "subledger": 0.0,
+                        "pdba": 0.0,
+                        "pdbA_Description": null,
+                        "timeSection": null,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "activity_Detail2": ""
+                      },
+                      {
+                        "timeSheet_No": "vilr32017025",
+                        "date_Work_Start": "2017-11-12T00:00:00",
+                        "date_Work_End": "2017-11-18T00:00:00",
+                        "status": "J",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "subledger": 0.0,
+                        "pdba": 0.0,
+                        "pdbA_Description": null,
+                        "timeSection": null,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "activity_Detail2": ""
+                      },
+                      {
+                        "timeSheet_No": "vilr32017025",
+                        "date_Work_Start": "2017-11-12T00:00:00",
+                        "date_Work_End": "2017-11-18T00:00:00",
+                        "status": "J",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "subledger": 0.0,
+                        "pdba": 0.0,
+                        "pdbA_Description": null,
+                        "timeSection": null,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "activity_Detail2": ""
+                      },
+                      {
+                        "timeSheet_No": "vilr32017025",
+                        "date_Work_Start": "2017-11-12T00:00:00",
+                        "date_Work_End": "2017-11-18T00:00:00",
+                        "status": "J",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "subledger": 0.0,
+                        "pdba": 0.0,
+                        "pdbA_Description": null,
+                        "timeSection": null,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "activity_Detail2": ""
+                      },
+                      {
+                        "timeSheet_No": "vilr32017025",
+                        "date_Work_Start": "2017-11-12T00:00:00",
+                        "date_Work_End": "2017-11-18T00:00:00",
+                        "status": "J",
+                        "line_No": 1.0,
+                        "time_Type": "A",
+                        "activity": "15147013",
+                        "operation": 0.0,
+                        "activity_Detail": "meeting/gest docs/formation",
+                        "subledger": 0.0,
+                        "pdba": 0.0,
+                        "pdbA_Description": null,
+                        "timeSection": null,
+                        "costObject1": "",
+                        "costObject2": "GENOTH    ",
+                        "activity_Detail2": ""
+                      }
+                ]
+            }
+        },
+        {
+            "name": "Unexistant route",
+            "url": "/timesheet/05849058df/",
+            "method": "GET",
+            "response": {
+                "status_code": 404
+            }
+        }
+    ]
+}

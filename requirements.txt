@@ -2,3 +2,6 @@ pyyaml
 requests
 faker
 Jinja2
+requests_ntlm
+colorama
+termtables

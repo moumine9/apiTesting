@@ -12,9 +12,10 @@ def main(argv):
     inputfile = ""
     outputfile = ""
     verbose = True
+    auth = {'method':'none', 'params':'none'}
 
     try:
-        opts, args = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
+        opts, args = getopt.getopt(argv,"hi:o:v:a:k:",["ifile=","ofile="])
     except getopt.GetoptError:
         print('test.py -i <inputfile> -o <outputfile>')
         sys.exit(2)
@@ -23,20 +24,33 @@ def main(argv):
         if opt == '-h':
             print('test.py -i <inputfile> -o <outputfile>')
             sys.exit()
-        elif opt in ("-i", "--ifile"):
+        if opt in ("-i", "--ifile"):
             inputfile = arg
-        elif opt in ("-o", "--ofile"):
+        if opt in ("-o", "--ofile"):
             outputfile = arg
-        elif opt == "-v":
+        if opt == "-v":
             verbose = False
+        if opt == "-a":
+            auth["method"] = arg
+        if opt == "-k":
+            auth["params"] = arg
+        
+    if(auth["method"] != "none" and auth["params"] == "none"):
+            print("Authentication params are missing")
+            print("Ex : apiTesting.py -a AuhMethod -k AuthParams")
+            sys.exit(2)
+            
 
 
     if( inputfile != "" ):
         stream = open(inputfile, 'r')
-        tests_data = load(stream)
+        if( 'json' in inputfile):
+            tests_data = json.load(stream)
+        if('yaml' in inputfile):
+            tests_data = load(stream)
         tests_info = { "name" : tests_data["name"], "base_url": tests_data["base_url"] }
         
-        tests_results = execute_tests(tests_data)
+        tests_results = execute_tests(tests_data, auth)
 
         if(verbose):
             display_log(tests_results)
